@@ -19,7 +19,9 @@ class CategoryAdapter(context: Context, categories: List<Category>) : BaseAdapte
 
         val holder : ViewHolder
 
+        //Si se lanza por primera vez
         if (convertView ==null){
+            println("Se crea por primera vez")
             categoryView = LayoutInflater.from(context).inflate(R.layout.category_list_item, null)
             holder = ViewHolder()
 
@@ -28,6 +30,7 @@ class CategoryAdapter(context: Context, categories: List<Category>) : BaseAdapte
             categoryView.tag = holder
         }
         else {
+            println("Recicla la vista")
             holder = convertView.tag as ViewHolder
             categoryView = convertView
         }
