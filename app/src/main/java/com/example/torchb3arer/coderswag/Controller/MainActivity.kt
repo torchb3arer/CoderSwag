@@ -2,8 +2,11 @@ package com.example.torchb3arer.coderswag.Controller
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.example.torchb3arer.coderswag.Adapters.CategoryAdapter
+import com.example.torchb3arer.coderswag.Adapters.CategoryRecycleAdapter
 import com.example.torchb3arer.coderswag.Model.Category
 import com.example.torchb3arer.coderswag.R
 import com.example.torchb3arer.coderswag.Services.DataService
@@ -12,7 +15,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     //lateinit var adapter : ArrayAdapter <Category>
-    lateinit var adapter : CategoryAdapter
+    //lateinit var adapter : CategoryAdapter
+    lateinit var adapter : CategoryRecycleAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,8 +24,18 @@ class MainActivity : AppCompatActivity() {
         //Adapter generico
         //adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,DataService.categories)
         //categoryListView.adapter = adapter
+        //adapter = CategoryAdapter(this,DataService.categories)
+        //categoryListView.adapter = adapter
 
-        adapter = CategoryAdapter(this,DataService.categories)
+        adapter = CategoryRecycleAdapter(this,DataService.categories)
         categoryListView.adapter = adapter
+
+        val layoutManager = LinearLayoutManager(this)
+        categoryListView.layoutManager = layoutManager
+        //Si no cambian dinamicamente
+        categoryListView.setHasFixedSize(true)
+
+
+
     }
 }
