@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.example.torchb3arer.coderswag.Model.Category
 import com.example.torchb3arer.coderswag.R
 
-class CategoryRecycleAdapter(val context: Context, val categories: List<Category>) : RecyclerView.Adapter<CategoryRecycleAdapter.Holder>() {
+class CategoryRecycleAdapter(val context: Context, val categories: List<Category>,val itemClick: (Category) ->Unit) : RecyclerView.Adapter<CategoryRecycleAdapter.Holder>() {
 
     override fun onBindViewHolder(p0: Holder, p1: Int) {
         p0.bindCategory(categories[p1],context)
@@ -23,12 +23,12 @@ class CategoryRecycleAdapter(val context: Context, val categories: List<Category
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): Holder {
         val view = LayoutInflater.from(context)
                 .inflate(R.layout.category_list_item, p0,false)
-        return Holder(view)
+        return Holder(view,itemClick)
     }
 
 
 
-    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class Holder(itemView: View, val itemClick: (Category) -> Unit) : RecyclerView.ViewHolder(itemView){
         //Referenciamos a los elementos de la UI
         val categoryName = itemView?.findViewById<TextView>(R.id.categoryName)
         val categoryImage = itemView?.findViewById<ImageView>(R.id.categoryImage)
@@ -38,6 +38,7 @@ class CategoryRecycleAdapter(val context: Context, val categories: List<Category
                     "drawable",context.packageName)
             categoryImage?.setImageResource(resorceID)
             categoryName?.text = category.title
+            itemView.setOnClickListener { itemClick(category) }
         }
     }
 }
